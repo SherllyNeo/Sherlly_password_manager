@@ -10,6 +10,7 @@ mod show_pass;
 mod make_db;
 mod add_entry;
 mod del_entry;
+mod make_db_safe;
 use encrypt::encrypt_text;
 use decrypt::decrypt_text;
 use password_file::save;

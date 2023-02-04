@@ -5,12 +5,16 @@ use crate::decrypt::decrypt_text;
 use crate::password_file::get_file_as_byte_vec;
 use crate::password_file::save;
 use crate::input_wrapper::get_input;
+use crate::make_db_safe::encode;
 
 
-pub fn add_entry(title: String, username: String, password: String) {
+pub fn add_entry(title_dirty: String, username_dirty: String, password_dirty: String) {
 
 println!("Please type your db password: \n");
 let db_pass = get_input();
+let title =  encode(title_dirty);
+let username = encode(username_dirty);
+let password =  encode(password_dirty);
 
 //get and decrypt file
 let ciphertextread = get_file_as_byte_vec(&PASSWORD_PATH.to_string());

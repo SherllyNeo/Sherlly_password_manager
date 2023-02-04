@@ -14,6 +14,7 @@ use crate::Entry;
 use std::{thread, time};
 use clipboard::ClipboardProvider;
 use clipboard::ClipboardContext;
+use crate::make_db_safe::decode;
 
 pub fn get_entry() {
 
@@ -37,12 +38,10 @@ let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
 
 
 println!("\n Copying password for title {} and username {} to clipboard for 20 seconds\n",profile.title,profile.username);
-ctx.set_contents(profile.password.to_owned()).unwrap();
+let pass = decode(profile.password.to_owned());
+ctx.set_contents(pass);
 let twenty_seconds = time::Duration::from_secs(20);
 
 thread::sleep(twenty_seconds);
-
-
-
 
 }
