@@ -24,7 +24,7 @@ use make_db::mk_db;
 use add_entry::add_entry;
 use del_entry::delete_entry;
 use std::error::Error;
-const PASSWORD_PATH: &str = "/home/sherlly/usb/password.db"
+const PASSWORD_PATH: &str = "/home/sherlly/usb/password.db";
 
 
 #[derive(Debug, Deserialize)]
