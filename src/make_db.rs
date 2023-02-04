@@ -5,8 +5,17 @@ use crate::input_wrapper::get_input;
 
 
 pub fn mk_db() {
-println!("please type in your password: \n");
+println!("\n Making a password database in {} \n ",PASSWORD_PATH);
+println!("please type a password to lock your database: \n");
 let pass = get_input();
-let encrypted_nothing = encrypt_text("".to_string(),pass.to_string());
-save(encrypted_nothing,PASSWORD_PATH);
+println!("please confirm password_database: \n");
+let pass_0 = get_input();
+if pass == pass_0 {
+    let encrypted_nothing = encrypt_text("".to_string(),pass.to_string());
+    save(encrypted_nothing,PASSWORD_PATH);
+    println!("blank password database made");
+}
+else {
+    println!("Passwords did not match -- Database not made")
+}
 }
