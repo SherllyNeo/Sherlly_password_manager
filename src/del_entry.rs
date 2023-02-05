@@ -9,19 +9,16 @@ use crate::input_wrapper::get_input;
 
 pub fn delete_entry(title: String) {
 
-println!("Please type your db password: \n");
-//let db_pass = get_input();
+//println!("Please type your db password: \n");
+//get and decrypt file
+// let ciphertextread = get_file_as_byte_vec(&PASSWORD_PATH.to_string());
+// let plaintext_str: String = decrypt_text(ciphertextread,db_pass.to_string());
 //
-////get and decrypt file
-//let ciphertextread = get_file_as_byte_vec(&PASSWORD_PATH.to_string());
-//let plaintext_str: String = decrypt_text(ciphertextread,db_pass.to_string());
+// //make new entry and append
+// let appened_text = format!("{{\"title\":\"{}\", \"username\":\"{}\", \"password\":\"{}\" }}",plaintext_str,title,username,password);
 //
-////make new entry and append
-//let appened_text = format!("{}😀😀😀{{\"title\":\"{}\", \"username\":\"{}\", \"password\":\"{}\" }}",plaintext_str,title,username,password);
-//println!("{}",appened_text);
-//
-//let encrypted_new = encrypt_text(append_text,db_pass);
-//save(encrypted_new,PASSWORD_PATH);
+// let encrypted_new = encrypt_text(append_text,db_pass);
+// save(encrypted_new,PASSWORD_PATH);
 
 
 }
