@@ -12,7 +12,7 @@ println!("please confirm password_database: \n");
 let pass_0 = get_input();
 if pass == pass_0 {
     let encrypted_nothing = encrypt_text("".to_string(),pass.to_string());
-    save(encrypted_nothing,PASSWORD_PATH);
+    save(encrypted_nothing,&PASSWORD_PATH);
     println!("blank password database made");
 }
 else {

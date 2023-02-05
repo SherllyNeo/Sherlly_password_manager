@@ -2,6 +2,7 @@ use std::fs::File;
 use crate::add_entry::add_entry_mass;
 use crate::input_wrapper::get_input;
 
+//simpily parses a csv, loops over the rows and adds them to the database file
 pub fn mass_import(csv_file_path: &str) {
 
     let file = File::open(csv_file_path).expect("could not open file path");

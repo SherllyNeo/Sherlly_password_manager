@@ -16,9 +16,10 @@ use clipboard::ClipboardProvider;
 use clipboard::ClipboardContext;
 use crate::make_db_safe::decode;
 
+//allows the user to select an entry based on it's title using dmenu, then prints it's username and copies the password to the clipboard. Only works on Xorg
 pub fn get_entry() {
 
-println!("please type in your password: \n");
+println!("please type in your db password: \n");
 let pass = get_input();
 let ciphertextread = get_file_as_byte_vec(&PASSWORD_PATH.to_string());
 let plaintext_str = decrypt_text(ciphertextread,pass.to_string());
