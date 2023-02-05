@@ -2,6 +2,7 @@
 An exceedingly simple password manager I wrote in rust.
 
 This is designed to work with my dotfiles and the sherlly windows manager.
+Some emoji are off limits for passwords. Check source code.
 
 It will store passwords and info as pseduojson in an encrypted bytes file.
 It has some basic functionality.
