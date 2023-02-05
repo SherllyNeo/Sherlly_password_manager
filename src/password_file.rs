@@ -1,10 +1,9 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
 
 pub fn save(bytes: Vec<u8>,path: &str) -> Result<(), Box<dyn Error>> {
-        use std::fs::File;
-        use std::io::Write;
         let mut file = File::create(path).expect("failed to make path");
         file.write_all(&bytes).map_err(|e| e.into())
     }
