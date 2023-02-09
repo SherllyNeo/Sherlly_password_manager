@@ -5,16 +5,13 @@ use crate::PASSWORD_PATH;
 use input_wrapper::get_input;
 use decrypt::decrypt_text;
 use password_file::get_file_as_byte_vec;
-use serde_derive::Deserialize;
-use serde_json::from_str;
-use std::env;
-use std::fs;
 use simple_dmenu::dmenu;
 use crate::Entry;
 use std::{thread, time};
 use clipboard::ClipboardProvider;
 use clipboard::ClipboardContext;
 use crate::make_db_safe::decode;
+use csv::ReaderBuilder;
 
 //allows the user to select an entry based on it's title using dmenu, then prints it's username and copies the password to the clipboard. Only works on Xorg
 pub fn get_entry() {
@@ -23,13 +20,25 @@ println!("please type in your db password: \n");
 let pass = get_input();
 let ciphertextread = get_file_as_byte_vec(&PASSWORD_PATH.to_string());
 let plaintext_str = decrypt_text(ciphertextread,pass.to_string());
-let parse_pts: Vec<&str> = plaintext_str.split("😀😀😀").collect();
-let vec_of_enteries: Vec<Entry> = parse_pts.into_iter().map(|entry| serde_json::from_str::<Entry>(&entry).expect("unable to parse json")).collect();
 
-let vec_of_usernames: Vec<&str> = vec_of_enteries.iter().map(|ent| ent.title).collect();
+let mut rdr = ReaderBuilder::new()
+         .delimiter(b',')
+         .from_reader(plaintext_str.as_bytes());
+let mut vec_of_entries: Vec<Entry> = Vec::new();
+
+for result in rdr.records() {
+    let record = result.expect("could not open dns record");
+    let title_extracted = &record[0];
+    let username_extracted = &record[1];
+    let password_extracted = &record[2];
+    let new_entry = Entry { title: title_extracted.to_owned(), username: username_extracted.to_owned(), password: password_extracted.to_owned()};
+    vec_of_entries.push(new_entry);
+}
+
+let vec_of_usernames: Vec<&str> = vec_of_entries.iter().map(|ent| ent.title.as_str()).collect();
 let output = dmenu!(iter vec_of_usernames);
 
-let output_user: Vec<Entry> = vec_of_enteries
+let output_user: Vec<Entry> = vec_of_entries
         .into_iter()
         .filter(|ent| ent.title == output)
         .collect();
@@ -40,7 +49,11 @@ let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
 
 println!("\n Copying password for title {} and username {} to clipboard for 20 seconds\n",profile.title,profile.username);
 let pass = decode(profile.password.to_owned());
-ctx.set_contents(pass);
+let result_of_clipboard = ctx.set_contents(pass.clone());
+match result_of_clipboard {
+        Ok(()) => {},
+        Err(error) => println!("\n \n FAILED TO WRITE TO CLIPBOARD -- {} --: \n writing password to standard output {}",error,pass),
+    };
 let twenty_seconds = time::Duration::from_secs(20);
 
 thread::sleep(twenty_seconds);

@@ -15,9 +15,7 @@ mod del_entry;
 mod make_db_safe;
 mod mass_import;
 use std::env;
-use std::fs;
 use serde_derive::Deserialize;
-use simple_dmenu::dmenu;
 use show_pass::get_entry;
 use make_db::mk_db;
 use add_entry::add_entry;
@@ -25,18 +23,16 @@ use add_entry::add_entry_gen;
 use del_entry::delete_entry;
 use mass_import::mass_import;
 use std::process::exit;
-use dirs::home_dir;
-use std::path::PathBuf;
 extern crate lazy_static;
 
 
-const PASSWORD_PATH: &str = "/home/sherlly/usb/password.db";
+const PASSWORD_PATH: &str = "/home/sherlly/password.db";
 
 #[derive(Debug, Deserialize)]
-struct Entry<'a> {
-    title: &'a str,
-    username: &'a str,
-    password: &'a str
+struct Entry {
+    title: String,
+    username: String,
+    password: String
 }
 fn main() {
 println!("\n setting database password in {} \n change in source code",&PASSWORD_PATH);
@@ -45,7 +41,7 @@ println!("\n Welcome to Sherlly's password manager (SPM) \n use flag -h for help
 let args: Vec<String> = env::args().collect();
 let mode = &args[1];
 
-if (mode == "-h" || mode == "--help") {
+if mode == "-h" || mode == "--help" {
     println!("\n
 SET WHERE THE DB FILE SHOULD GO IN THE SOURCE CODE BEFORE COMPILING \n
 SOME EMOJI CANNOT BE USED IN PASSWORDS AS IT RUINS THE PARSING - ANY USED IN THE SOURCE CODE ARE OFFLIMITS \n
