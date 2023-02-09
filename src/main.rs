@@ -24,7 +24,7 @@ use std::process::exit;
 extern crate lazy_static;
 
 
-const PASSWORD_PATH: &str = "/home/sherlly/password.db";
+const PASSWORD_PATH: &str = "/home/sherlly/usb/password.db";
 
 #[derive(Debug)]
 struct Entry {

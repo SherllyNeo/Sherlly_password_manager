@@ -38,6 +38,7 @@ for result in rdr.records() {
 let vec_of_usernames: Vec<&str> = vec_of_entries.iter().map(|ent| ent.title.as_str()).collect();
 let output = dmenu!(iter vec_of_usernames);
 
+
 let output_user: Vec<Entry> = vec_of_entries
         .into_iter()
         .filter(|ent| ent.title == output)

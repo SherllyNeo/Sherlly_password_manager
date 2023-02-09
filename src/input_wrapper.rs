@@ -1,13 +1,16 @@
-use std::io::{stdin,stdout,Write};
+use std::io::{stdout,Write};
+use rpassword::read_password;
 
 pub fn get_input() -> String {
 
-    let mut input = String::new();
 
+    print!("Type a password: ");
+    std::io::stdout().flush().unwrap();
+    let mut input = read_password().unwrap();
     // flush terminal buffer
     stdout().flush().expect("there has been an error when flushing terminal ");
     // read terminal input into the input variable
-    stdin().read_line(&mut input).expect("Did not enter a correct string");
+
     //remove \n if on linux
     if let Some('\n')=input.chars().next_back() {
         input.pop();
