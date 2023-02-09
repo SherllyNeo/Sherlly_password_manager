@@ -1,5 +1,4 @@
 extern crate bincode;
-extern crate serde;
 extern crate dirs;
 extern crate clipboard;
 extern crate csv;
@@ -15,7 +14,6 @@ mod del_entry;
 mod make_db_safe;
 mod mass_import;
 use std::env;
-use serde_derive::Deserialize;
 use show_pass::get_entry;
 use make_db::mk_db;
 use add_entry::add_entry;
@@ -28,7 +26,7 @@ extern crate lazy_static;
 
 const PASSWORD_PATH: &str = "/home/sherlly/password.db";
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug)]
 struct Entry {
     title: String,
     username: String,
